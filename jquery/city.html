@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/citylist.min.js"></script>
+    <!--<script src="js/city.min.js"></script>-->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/city-data-tools.js"></script>
+    <script src="bower_components/wow/dist/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div class="row province-header">
+        <a href="" onclick="history.back()">
+            返回</a>
+        <h3>选择城市</h3>
+    </div>
+
+
+    <div class="row cityname" id="cityVisited"></div>
+
+
+</div>
+<script>
+
+    //创建城市页面按钮
+    var cityStorage = localStorage.getItem("cityName");
+    var cityNameArr = JSON.parse(cityStorage);
+    console.log(cityNameArr);
+
+    for (var i = 0; i < cityNameArr.city.length; i++) {
+        $('#cityVisited').append('<div class="col-xs-3 wow bounceIn"><button id="btn' + i + '"></button></div>');
+        $('#btn' + i).html(cityNameArr.city[i].name);
+        $('#btn' + i).click((function (a) {
+            return function () {
+                addCityCount(cityNameArr.city[a].name);
+                console.log(cityNameArr.city[a])
+                localStorage.setItem("last", JSON.stringify(cityNameArr.city[a]));
+                location.assign("index.html");
+            }
+        })(i));
+    }
+
+</script>
+</body>
+
+</html>
